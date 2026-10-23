@@ -1,0 +1,11 @@
+const router = require('express').Router();
+const c = require('../controllers/author.controller');
+const { authenticateToken } = require('../middleware/auth');
+const { userRateLimiter } = require('../middleware/rateLimiter');
+const limiter = userRateLimiter({ windowSeconds: Number(process.env.RATE_LIMIT_WINDOW_SECONDS || 60), maxRequests: Number(process.env.RATE_LIMIT_MAX || 10) });
+router.get('/', c.listAuthors);
+router.get('/:id', c.getAuthor);
+router.post('/', authenticateToken, limiter, c.createAuthor);
+router.put('/:id', authenticateToken, limiter, c.updateAuthor);
+router.delete('/:id', authenticateToken, limiter, c.deleteAuthor);
+module.exports = router;

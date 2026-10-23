@@ -1,0 +1,30 @@
+{
+  "name": "nodejs-auth-books-api",
+  "version": "1.0.0",
+  "description": "JWT auth, authors/books CRUD, Redis rate limiting, and image uploads",
+  "main": "src/server.js",
+  "scripts": {
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js",
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate dev --name init"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.16.2",
+    "bcryptjs": "^3.0.2",
+    "compression": "^1.8.1",
+    "dotenv": "^17.2.2",
+    "express": "^5.1.0",
+    "express-rate-limit": "^8.1.0",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^2.0.2",
+    "redis": "^5.8.2",
+    "sharp": "^0.34.4"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10",
+    "prisma": "^6.16.2"
+  },
+  "engines": { "node": ">=20.0.0" }
+}

@@ -1,0 +1,11 @@
+const router = require('express').Router();
+const c = require('../controllers/book.controller');
+const { authenticateToken } = require('../middleware/auth');
+const { userRateLimiter } = require('../middleware/rateLimiter');
+const limiter = userRateLimiter({ windowSeconds: Number(process.env.RATE_LIMIT_WINDOW_SECONDS || 60), maxRequests: Number(process.env.RATE_LIMIT_MAX || 10) });
+router.get('/', c.listBooks);
+router.get('/:id', c.getBook);
+router.post('/', authenticateToken, limiter, c.createBook);
+router.put('/:id', authenticateToken, limiter, c.updateBook);
+router.delete('/:id', authenticateToken, limiter, c.deleteBook);
+module.exports = router;
